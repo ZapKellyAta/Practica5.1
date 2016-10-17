@@ -19,42 +19,35 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 
-public class MenuActivity extends NavigationDraActivity {
+public class HealthyActivity extends NavigationDraActivity {
 
     private ViewPager mViewPager;
-    String promo;
     String user,pass,email;
+    String promo;
     private DrawerLayout drawerLayout;
-    private String[] opciones = new String[] {"Mi Perfil","Menu", "Healthy","Promociones"};
+    private String[] opciones = new String[] {"Mi Perfil", "Menu", "Healthy","Promociones"};
     private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_Menu);
+        //setContentView(R.layout.activity_Healthy);
 
-        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contenedorFrame); //Remember this is the FrameLayout area within your activity_main.xml
-        getLayoutInflater().inflate(R.layout.activity_menu, contentFrameLayout);
-
-        user = getIntent().getExtras().getString("user");
+        user = getIntent().getExtras().getString("usuario");
         pass = getIntent().getExtras().getString("pass");
         email = getIntent().getExtras().getString("email");
         promo = getIntent().getExtras().getString("promo");
 
-        //ActionBar actionBar = getSupportActionBar();
-        drawerLayout = (DrawerLayout) findViewById(R.id.contenedorPrincipal);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contenedorFrame); //Remember this is the FrameLayout area within your activity_main.xml
+        getLayoutInflater().inflate(R.layout.activity_healthy, contentFrameLayout);
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pag_fragmentos);
+        mViewPager = (ViewPager) findViewById(R.id.pag_ofertas);
         mViewPager.setAdapter(pagerAdapter);
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.contenedorPrincipal);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        if (actionBar != null){
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
 
         ActionBar.TabListener tabListener = new ActionBar.TabListener(){
             @Override
@@ -70,11 +63,11 @@ public class MenuActivity extends NavigationDraActivity {
 
             }
         };
-        ActionBar.Tab tab = actionBar.newTab().setText(R.string.txtBebidas).setTabListener(tabListener);
+        ActionBar.Tab tab = actionBar.newTab().setText(R.string.Ensaladas).setTabListener(tabListener);
         actionBar.addTab(tab);
-        tab = actionBar.newTab().setText(R.string.txtPastas).setTabListener(tabListener);
+        tab = actionBar.newTab().setText(R.string.Sanduches).setTabListener(tabListener);
         actionBar.addTab(tab);
-        tab = actionBar.newTab().setText(R.string.txtPostres).setTabListener(tabListener);
+        tab = actionBar.newTab().setText(R.string.MuyParmessano).setTabListener(tabListener);
         actionBar.addTab(tab);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
@@ -82,7 +75,6 @@ public class MenuActivity extends NavigationDraActivity {
                 getSupportActionBar().setSelectedNavigationItem(position);
             }
         });
-
         listView = (ListView) findViewById(R.id.list);
 
         listView.setAdapter(new ArrayAdapter<String>(getSupportActionBar().getThemedContext(),
@@ -93,7 +85,7 @@ public class MenuActivity extends NavigationDraActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case(0):
-                        Intent intento1=new Intent(MenuActivity.this,PerfilActivity.class);
+                        Intent intento1=new Intent(HealthyActivity.this,PerfilActivity.class);
                         intento1.putExtra("user", user);
                         intento1.putExtra("pass", pass);
                         intento1.putExtra("email", email);
@@ -102,10 +94,17 @@ public class MenuActivity extends NavigationDraActivity {
                         finish();
                         break;
                     case(1):
+                        Intent intento2=new Intent(HealthyActivity.this,MenuActivity.class);
+                        intento2.putExtra("usuario", user);
+                        intento2.putExtra("pass", pass);
+                        intento2.putExtra("email", email);
+                        intento2.putExtra("promo", promo);
+                        startActivity(intento2);
+                        finish();
                         break;
                     case(2):
-                        Intent intento=new Intent(MenuActivity.this,HealthyActivity.class);
-                        intento.putExtra("user", user);
+                        Intent intento=new Intent(HealthyActivity.this,HealthyActivity.class);
+                        intento.putExtra("usuario", user);
                         intento.putExtra("pass", pass);
                         intento.putExtra("email", email);
                         intento.putExtra("promo", promo);
@@ -113,8 +112,8 @@ public class MenuActivity extends NavigationDraActivity {
                         finish();
                         break;
                     case(3):
-                        Intent intent=new Intent(MenuActivity.this,MainActivity.class);
-                        intent.putExtra("user", user);
+                        Intent intent=new Intent(HealthyActivity.this,MainActivity.class);
+                        intent.putExtra("usuario", user);
                         intent.putExtra("pass", pass);
                         intent.putExtra("email", email);
                         intent.putExtra("promo", promo);
@@ -135,9 +134,9 @@ public class MenuActivity extends NavigationDraActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position){
-                case 0: return new BebidasFragment();
-                case 1: return new PastasFragment();
-                case 2: return new PostresFragment();
+                case 0: return new EnsaladaFragment();
+                case 1: return new SanducheFragment();
+                case 2: return new MuyParmessanoFragment();
                 default: return null;
             }
         }
@@ -173,7 +172,6 @@ public class MenuActivity extends NavigationDraActivity {
                 startActivity(intento3);
                 finish();
                 break;
-
         }
 
         return super.onOptionsItemSelected(item);

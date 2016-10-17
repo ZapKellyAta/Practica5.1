@@ -19,7 +19,10 @@
         <activity android:name=".LogginActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".PerfilActivity" />
-        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".HealthyActivity" />
+        <activity android:name=".NavigationDraActivity" />
+        <activity android:name=".PromocionesActivity" ></activity>
     </application>
 
 </manifest>

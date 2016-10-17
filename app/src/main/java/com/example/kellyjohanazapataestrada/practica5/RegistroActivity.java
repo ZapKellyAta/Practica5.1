@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class RegistroActivity extends LogginActivity implements OnClickListener
+public class RegistroActivity extends LogginActivity
 {
 
     Button btnSign;
@@ -70,10 +70,10 @@ public class RegistroActivity extends LogginActivity implements OnClickListener
                 {
                     bandera = 1;
                     Intent intent = new Intent();
-                    intent.putExtra("User",txtUser.getText().toString());
-                    intent.putExtra("Pass",txtPass.getText().toString());
-                    intent.putExtra("RePass",txtRePass.getText().toString());
-                    intent.putExtra("Email",txtEmail.getText().toString());
+                    intent.putExtra("user",txtUser.getText().toString());
+                    intent.putExtra("pass",txtPass.getText().toString());
+                    intent.putExtra("rePass",txtRePass.getText().toString());
+                    intent.putExtra("email",txtEmail.getText().toString());
                     setResult(RESULT_OK,intent);
                     finish();
                 }
